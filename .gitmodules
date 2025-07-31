@@ -1,3 +1,6 @@
 [submodule "core"]
 	path = core
 	url = https://github.com/ultraembedded/riscv.git
+[submodule "biriscv"]
+	path = biriscv
+	url = https://github.com/ultraembedded/biriscv

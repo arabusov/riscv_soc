@@ -1,4 +1,4 @@
-set design_name "riscv_arty_a7_100"
+set design_name "single_issue"
 
 create_project -force -part "xc7a100tcsg324-1" ${design_name} vivado_project
 

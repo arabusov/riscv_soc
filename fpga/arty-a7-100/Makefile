@@ -1,9 +1,18 @@
 BOARD=arty_a7_100t
 
-riscv_arty_a7_100.bit: build.tcl
-	vivado -tempDir tmp_vivado -mode batch -source build.tcl
+dual: dual_issue.bit
 
-program: riscv_arty_a7_100.bit
+single: single_issue.bit
+
+all: single dual
+
+%.bit: %.tcl
+	vivado -tempDir tmp_vivado -mode batch -source $<
+
+flash-dual: dual_issue.bit
+	openFPGALoader -b ${BOARD} $<
+
+flash-single: single_issue.bit
 	openFPGALoader -b ${BOARD} $<
 
 clean:
@@ -11,6 +20,7 @@ clean:
 
 Clean: clean
 	rm -rf \
+		birisc_vivado_project \
 		vivado_project \
 		clockInfo.txt \
 		ip/axi_cdc_buffer/axi_cdc_buffer.dcp \
@@ -41,7 +51,7 @@ Clean: clean
 		ip/mig_axis/mig_axis_xmdf.tcl \
 		ip/mig_axis/xil_txt.in \
 		ip/mig_axis/xil_txt.out \
-		riscv_arty_a7_100.bit \
+		*.bit \
 		tight_setup_hold_pins.txt \
 		vivado*.jou \
 		vivado*.log

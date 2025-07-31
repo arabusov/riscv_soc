@@ -1,4 +1,5 @@
 vivado_project
+biriscv_vivado_project
 clockInfo.txt
 ip/axi_cdc_buffer/axi_cdc_buffer.dcp
 ip/axi_cdc_buffer/axi_cdc_buffer.veo
@@ -28,7 +29,7 @@ ip/mig_axis/mig_axis_stub.vhdl
 ip/mig_axis/mig_axis_xmdf.tcl
 ip/mig_axis/xil_txt.in
 ip/mig_axis/xil_txt.out
-riscv_arty_a7_100.bit
+*.bit
 tight_setup_hold_pins.txt
 vivado*.jou
 vivado*.log

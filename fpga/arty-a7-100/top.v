@@ -4,7 +4,7 @@
 module top
 (
     input                   clk100mhz,
-    output [3:0]            led,
+    output reg [3:0]        led,
     output                  uart_rxd_out,
     input                   uart_txd_in,
 
@@ -189,24 +189,33 @@ u_top
     .uart_txd_i(uart_txd_in)
 );
 
+reg [21:0] cnt;
+
 // Xilinx placement pragmas:
 //synthesis attribute IOB of txd_q is "TRUE"
 reg txd_q;
 
 always @ (posedge clk_w or posedge rst_sys_w)
-if (rst_sys_w)
-    txd_q <= 1'b1;
-else
-    txd_q <= dbg_txd_w & uart_txd_w;
+    if (rst_sys_w) begin
+        txd_q <= 1'b1;
+        cnt <= 22'b0;
+    end
+    else begin
+        txd_q <= dbg_txd_w & uart_txd_w;
+        cnt <= cnt + 1;
+    end
 
 // 'OR' two UARTs together
 assign uart_rxd_out  = txd_q;
 
-
-assign led[0] = 1'b1;
-assign led[1] = 1'b0;
-assign led[2] = 1'b0;
-assign led[3] = 1'b0;
+always @ (posedge cnt[21] or posedge rst_sys_w) begin
+    if (rst_sys_w) begin
+        led <= 4'b1000;
+    end
+    else begin
+        led <= (led << 1) | led[3];
+    end
+end
 
 assign qspi_dq[2] = 1'bz;
 assign qspi_dq[3] = 1'bz;
