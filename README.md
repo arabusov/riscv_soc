@@ -1,4 +1,12 @@
-# RISC-V Test SoC
+# Fork of Ultraembedded RISC-V Test SoC
+## Additions
+
+  1. Added Arty-A7 100 support
+  2. Use TCL scripts and Makefile to generate a bitstream
+  3. Updated python scripts to python3
+  4. Use `openFPGALoader` to flash the bitstream
+
+## Original README.md
 
 Github: http://github.com/ultraembedded/riscv_soc
 
